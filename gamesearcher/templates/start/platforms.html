@@ -1,0 +1,35 @@
+{% extends "general/base.html" %}
+{% block head %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'start/platforms.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'general/style.css' %}">
+{% endblock %}
+{% block title %}Your platforms{% endblock %}
+{% block content %}
+	<div class="row h-100 justify-content-center align-items-center text-center">
+		<div class="col mt-5">
+			{% if request.user.is_authenticated %}
+				<h2>Choose your platforms</h2>
+				<div class="mt-5">
+					{% if noPlatform %}
+					<ul class='errorlist'>
+						<li>You have to choose at least one platform</li>
+					</ul>
+					{% endif %}
+					<form method="POST">
+						<div class="form-group">
+					   	{% for p in platforms %}
+					   		<span class="input-container">
+					   			<input id={{p.name}} type="checkbox" name="platforms" value={{p.name}}/>
+					   			<label for={{p.name}}><span>{{p.name}}</span></label>
+					   		</span>
+					   	{% endfor %}
+					    {% csrf_token %}
+					    </div>
+					    <button type="submit" class="btn btn-dark mt-5 px-4">Next</button>
+					</form>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

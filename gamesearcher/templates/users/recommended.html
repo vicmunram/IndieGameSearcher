@@ -1,0 +1,36 @@
+{% extends "general/base.html" %}
+{% block head %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'general/style.css' %}">
+{% endblock %}
+{% block title %}Recommended Games{% endblock %}
+{% block content %}
+	<div class="row h-100 mx-auto align-items-center text-center">
+		<div class="col-12 mt-5">
+			{% if games|length < 1 %}
+				<h2>No games found in your recommendations</h2>
+			{% else %}	
+				<h2>Games recommended to you</h2>
+			{% endif %}
+				<h5><a class="custom-link" href="/games/recommend">Update my recommendations</a></h5>
+			<br/>
+			<div class="row">
+			{% for g in games %}
+			    <div class="col-4">
+			    	<img class="img-fluid rounded" src="{{g.imageURL}}" alt="Card image cap">
+			    	<h5 style="word-break: break-all;"><a class="custom-link" href="/games/{{g.id}}">{{g.title}}</a></h5>
+			    	{% for a in g.authors.all %}
+			    	<span style="word-break: break-all;">{{a}}</span>
+			    	{% endfor %}
+			    	<br/>
+			    	<br/>
+			    </div>
+			    {% if forloop.counter|divisibleby:3 %}
+			</div>
+			<div class="row">
+			    {% endif %}
+			{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

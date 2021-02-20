@@ -1,0 +1,23 @@
+a.custom-link:visited {
+	color: #8854d0; 
+	font-weight: bold;
+	text-decoration: none;
+}
+
+a.custom-link:link {
+	color: #D6A2E8; 
+	font-weight: bold;
+	text-decoration: none;
+}
+
+a.custom-link:hover {
+	color: #82589F; 
+	font-weight: bold;
+	text-decoration: none;
+}
+
+ul.errorlist {
+	list-style-type: none;
+	padding: 0;
+	color: #B53471;
+}

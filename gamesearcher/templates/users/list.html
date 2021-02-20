@@ -1,0 +1,42 @@
+{% extends "general/base.html" %}
+{% block head %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'general/style.css' %}">
+{% endblock %}
+{% block title %}Search{% endblock %}
+{% block content %}
+	<div class="row h-100 mx-auto align-items-center text-center">
+		<div class="col-12 mt-5">
+			<h2>Search completed</h2>
+			{% if games|length < 1 %}
+				<h5>No games were found</h5>
+			{% elif games|length == 1%}
+				<h5>Only 1 game was found</h5>
+			{% else %}
+				<h5>{{games|length}} games were found</h5>
+			{% endif %}	
+			<br/>
+			<div class="row">
+			{% for g in games %}
+			    <div class="col-4">
+			    	{% if g.imageURL %}
+			    		<img class="img-fluid rounded" src="{{g.imageURL}}" alt="No Image">
+			    	{% else %}
+			    		<img class="img-fluid rounded" src="/static/general/no_image_available.jpg" alt="No Image">
+			    	{% endif %}
+			    	<h5 style="word-break: break-all;"><a class="custom-link" href="/games/{{g.id}}">{{g.title}}</a></h5>
+			    	{% for a in g.authors.all %}
+			    	<span style="word-break: break-all;">{{a}}</span>
+			    	{% endfor %}
+			    	<br/>
+			    	<br/>
+			    </div>
+			    {% if forloop.counter|divisibleby:3 %}
+			</div>
+			<div class="row">
+			    {% endif %}
+			{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

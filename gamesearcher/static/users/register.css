@@ -1,0 +1,7 @@
+input::-webkit-input-placeholder {
+	text-align: center;
+}
+input::-moz-placeholder {
+	text-align: center;
+}
+input[type="text"], [type="password"] { text-align : center !important;}

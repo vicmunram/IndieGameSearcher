@@ -1,0 +1,94 @@
+{% extends "general/base.html" %}
+{% block head %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'general/style.css' %}">
+{% endblock %}
+{% block title %}Welcome{% endblock %}
+{% block content %}
+	<div class="row h-100 justify-content-center align-items-center text-center">
+		<div class="col-12 mt-5">
+			{% if request.user.is_authenticated%}
+				{% if request.user.is_staff %}
+					<div class="col-4 mx-auto">
+						<h3 class="text-center">IGameS Stats</h3>
+						<ul class="list-group">
+							<li class="list-group-item d-flex justify-content-between align-items-center">Authors:
+								<span class="badge badge-secondary badge-pill">{{authorsNumber}}</span>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center">Genres:
+								<span class="badge badge-secondary badge-pill">{{genresNumber}}</span>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center">Platforms:
+								<span class="badge badge-secondary badge-pill">{{platformsNumber}}</span>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center">Tags:
+								<span class="badge badge-secondary badge-pill">{{tagsNumber}}</span>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center">Indie Games:
+								<span class="badge badge-secondary badge-pill">{{igames}}</span>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center">Mainstream Games:
+								<span class="badge badge-secondary badge-pill">{{mgames}}</span>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center">IGS Users:
+								<span class="badge badge-secondary badge-pill">{{igsUsers}}</span>
+							</li>
+						</ul>
+					</div>
+				{% else %}
+					{% if notStarted %}
+						<a class="btn btn-dark p-4" href="/start/platforms"><h1>START SEARCHING</h1></a>
+					{% else %}
+						<h2>Last games added</h2>
+						<br/>
+						<div class="row">
+						{% for g in games %}
+						    <div class="col-4">
+						    	{% if g.imageURL %}
+						    		<img class="img-fluid rounded" src="{{g.imageURL}}" alt="No Image">
+						    	{% else %}
+						    		<img class="img-fluid rounded" src="/static/general/no_image_available.jpg" alt="No Image">
+						    	{% endif %}
+						    	<h5 style="word-break: break-all;"><a class="custom-link" href="/games/{{g.id}}">{{g.title}}</a></h5>
+						    	{% for a in g.authors.all %}
+						    	<span style="word-break: break-all;">{{a}}</span>
+						    	{% endfor %}
+						    	<br/>
+						    	<br/>
+						    </div>
+						    {% if forloop.counter|divisibleby:3 %}
+						</div>
+						<div class="row">
+						    {% endif %}
+						{% endfor %}
+						</div>
+					{% endif %}
+				{% endif %}
+			{% else %}
+				<h2>Last games added</h2>
+				<br/>
+				<div class="row">
+				{% for g in games %}
+				    <div class="col-4">
+				    	{% if g.imageURL %}
+				    		<img class="img-fluid rounded" src="{{g.imageURL}}" alt="No Image">
+				    	{% else %}
+				    		<img class="img-fluid rounded" src="/static/general/no_image_available.jpg" alt="No Image">
+				    	{% endif %}
+				    	<h5 style="word-break: break-all;"><a class="custom-link" href="/games/{{g.id}}">{{g.title}}</a></h5>
+				    	{% for a in g.authors.all %}
+				    		<span style="word-break: break-all;">{{a}}</span>
+				    	{% endfor %}
+				    	<br/>
+				    	<br/>
+				    </div>
+				    {% if forloop.counter|divisibleby:3 %}
+				</div>
+				<div class="row">
+				    {% endif %}
+				{% endfor %}
+				</div>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

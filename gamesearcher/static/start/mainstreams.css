@@ -1,0 +1,6 @@
+ul {
+	list-style-type: none;
+}
+ul.errorlist {
+	font-weight: bold;
+}

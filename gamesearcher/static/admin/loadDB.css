@@ -1,0 +1,7 @@
+input::-webkit-input-placeholder {
+	text-align: center;
+}
+input::-moz-placeholder {
+	text-align: center;
+}
+input[type="number"] { text-align : center !important;}
